@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:accounts2/actions/login.dart' as lg;
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -7,19 +7,38 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+class st {
+  String uname = "";
+  String passwd = "";
+}
+
 class _LoginState extends State<Login> {
-  var state = <String, String>{};
+  var state = st();
   var padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 16);
 
   void ss(String name, String val) {
-    setState(() {
-      state[name] = val;
-      // print(state);
-    });
+    switch (name) {
+      case "uname": {
+        state.uname = val;
+        break;
+      }
+      default: {
+        state.passwd = val;
+      }
+    }
   }
 
-  void login(){
-    
+  void login() async {
+    var res = await lg.login(state.uname, state.passwd);
+    if (res == "INVALID_PASSWD"){
+      
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+
   }
 
   @override
