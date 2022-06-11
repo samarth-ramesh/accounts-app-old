@@ -1,5 +1,5 @@
 import 'package:accounts2/Login.dart';
-import 'package:accounts2/accounts.dart';
+import 'package:accounts2/accounts/accounts.dart';
 import 'package:accounts2/transactions/transactions.dart';
 import 'package:flutter/material.dart';
 
