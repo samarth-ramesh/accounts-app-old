@@ -44,6 +44,14 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
 
   void createTrans() async {
     var newTrans = await createTransaction(remarks, s1, s2, double.parse(amt));
+    var accName1 = accounts[int.parse(newTrans.acc1)];
+    var accName2 = accounts[int.parse(newTrans.acc2)];
+    if (accName1 != null){
+      newTrans.acc1 = accName1;
+    }
+    if (accName2 != null){
+      newTrans.acc2 = accName2;
+    }
     if (mounted){
       Navigator.of(context).pop(newTrans);
     }
