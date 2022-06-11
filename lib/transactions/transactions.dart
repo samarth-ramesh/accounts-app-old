@@ -25,8 +25,13 @@ class _TransactionsPageState extends State<TransactionsPage> {
     });
   }
 
-  void opf(){
-    showDialog(context: context, builder: (BuildContext ctx) => AddTransactionModal());
+  void opf() async {
+    Transaction? newTrans = await showDialog(context: context, builder: (BuildContext ctx) => const AddTransactionModal());
+    if (newTrans != null && mounted){
+      setState((){
+        transactions.add(newTrans);
+      });
+    }
   }
 
   @override
