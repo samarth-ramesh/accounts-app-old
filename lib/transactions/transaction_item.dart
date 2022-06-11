@@ -1,5 +1,6 @@
 import 'package:accounts2/actions/get_transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 String dtToDDMMYY(DateTime dt) {
   return "${dt.day}/${dt.month}/${dt.year}";
@@ -11,14 +12,30 @@ String dtToHHMM(DateTime dt) {
 
 class TransactionItem extends StatelessWidget {
   final Transaction t;
+  final Function(Transaction?) setSelected;
+  final bool selected;
 
-  const TransactionItem({Key? key, required this.t}) : super(key: key);
+  const TransactionItem({
+    Key? key,
+    required this.t,
+    required this.setSelected,
+    required this.selected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const lbl_style = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-    return Card(
-      child: Padding(
+    return GestureDetector(
+      onLongPress: () {
+        setSelected(t);
+        HapticFeedback.vibrate();
+      },
+      onLongPressCancel: () {
+        setSelected(null);
+      },
+      child: Card(
+        color: selected ? Theme.of(context).selectedRowColor : null,
+        child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
@@ -77,7 +94,9 @@ class TransactionItem extends StatelessWidget {
                 ),
               )
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

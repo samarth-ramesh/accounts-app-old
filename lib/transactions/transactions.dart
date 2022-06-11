@@ -13,6 +13,7 @@ class TransactionsPage extends StatefulWidget {
 
 class _TransactionsPageState extends State<TransactionsPage> {
   List<Transaction> transactions = [];
+  Transaction? selected;
 
   @override
   initState() {
@@ -38,16 +39,25 @@ class _TransactionsPageState extends State<TransactionsPage> {
     }
   }
 
+  void select(Transaction? t){
+    setState((){
+      selected = t;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Navbar(),
       appBar: AppBar(
         title: const Text("Transactions"),
+        actions: (selected == null? [] : [IconButton(onPressed: (){}, icon: const Icon(Icons.edit))]),
       ),
       body: ListView(
         children: List.from(transactions.map((e) => TransactionItem(
               t: e,
+              setSelected: select,
+              selected: selected?.id == e.id,
               key: Key(e.id.toString()),
             ))),
       ),
