@@ -1,3 +1,4 @@
+import 'package:accounts2/actions/create_transaction.dart';
 import 'package:accounts2/actions/get_accounts.dart';
 import 'package:accounts2/transactions/dropdown_button.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
   int s1 = -1;
   int s2 = -1;
   String amt = "";
+  String remarks = "";
   Map<int, String> accounts = {};
 
   void sets1(int s) {
@@ -40,11 +42,18 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
     });
   }
 
+  void createTrans() async {
+    var newTrans = await createTransaction(remarks, s1, s2, double.parse(amt));
+    if (mounted){
+      Navigator.of(context).pop(newTrans);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: const Text(
-        "Create Account",
+        "Create Transactions",
         textAlign: TextAlign.center,
       ),
       titlePadding: const EdgeInsets.all(8),
@@ -77,7 +86,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.only(top: 8),
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
@@ -91,8 +100,21 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
+                  child: TextField(
+                    onChanged: (String s) {
+                      setState(() {
+                        remarks = s;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), label: Text("Remarks")),
+                    keyboardType: TextInputType.text,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Text("Create!")),
+                      onPressed: () {createTrans();}, child: const Text("Create!")),
                 )
               ],
             ))
