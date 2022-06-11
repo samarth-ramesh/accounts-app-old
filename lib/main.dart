@@ -1,4 +1,5 @@
 import 'package:accounts2/Login.dart';
+import 'package:accounts2/accounts.dart';
 import 'package:accounts2/transactions/transactions.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Login(),
-        '/foo': (context) => const TransactionsPage()
+        '/transactions': (context) => const TransactionsPage(),
+        '/accounts' : (context) => const AccountsPage()
       },
     );
   }

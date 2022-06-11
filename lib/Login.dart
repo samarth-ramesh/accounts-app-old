@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Theme.of(context).errorColor,
         ));
       } else {
-        Navigator.pushNamed(context, '/foo');
+        Navigator.pushNamed(context, '/transactions');
       }
     }
   }

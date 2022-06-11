@@ -1,4 +1,5 @@
 import 'package:accounts2/actions/get_transactions.dart';
+import 'package:accounts2/navbar.dart';
 import 'package:accounts2/transactions/add_transaction_modal.dart';
 import 'package:accounts2/transactions/transaction_item.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +38,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            TextButton(onPressed: (){}, child: const Text("Transactions"))
-          ]
-        ),
-      ),
+      drawer: const Navbar(),
       appBar: AppBar(
         title: const Text("Transactions"),
       ),
