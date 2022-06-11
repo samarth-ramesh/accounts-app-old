@@ -16,6 +16,7 @@ class TransactionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const lbl_style = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
     return Card(
       child: Padding(
           padding: const EdgeInsets.all(16),
@@ -33,35 +34,47 @@ class TransactionItem extends StatelessWidget {
                 children: [
                   const Text(
                     "Remarks: ",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
+                    style: lbl_style,
                   ),
                   Text(
                     t.remarks,
                     style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [const Text("From"), Text(t.acc1)],
-                  ),
-                  Column(
-                    children: [const Text("Amount"), Text(t.amt.toString())],
-                  ),
-                  Column(
-                    children: [
-                      const Text("To"),
-                      Text(t.acc2),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 16,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const Text(
+                          "From",
+                          style: lbl_style,
+                        ),
+                        Text(t.acc1)
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Text("Amount", style: lbl_style),
+                        Text(t.amt.toString())
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Text("To", style: lbl_style),
+                        Text(t.acc2),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           )),
