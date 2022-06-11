@@ -39,8 +39,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
     }
   }
 
-  void select(Transaction? t){
-    setState((){
+  void select(Transaction? t) {
+    setState(() {
       selected = t;
     });
   }
@@ -50,8 +50,16 @@ class _TransactionsPageState extends State<TransactionsPage> {
     return Scaffold(
       drawer: const Navbar(),
       appBar: AppBar(
-        title: const Text("Transactions"),
-        actions: (selected == null? [] : [IconButton(onPressed: (){}, icon: const Icon(Icons.edit))]),
+        title: selected == null ? const Text("Transactions") : null,
+        actions: (selected == null
+            ? []
+            : [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+              ]),
+        leading: (selected != null) ? IconButton(onPressed: (){
+          select(null);
+        }, icon: const Icon(Icons.close)) : null,
       ),
       body: ListView(
         children: List.from(transactions.map((e) => TransactionItem(
