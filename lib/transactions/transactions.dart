@@ -13,23 +13,26 @@ class TransactionsPage extends StatefulWidget {
 
 class _TransactionsPageState extends State<TransactionsPage> {
   List<Transaction> transactions = [];
+
   @override
-  initState(){
+  initState() {
     super.initState();
     getTrans();
   }
 
   void getTrans() async {
     var trans = await getTransactions();
-    setState((){
+    setState(() {
       transactions = trans;
     });
   }
 
   void opf() async {
-    Transaction? newTrans = await showDialog(context: context, builder: (BuildContext ctx) => const AddTransactionModal());
-    if (newTrans != null && mounted){
-      setState((){
+    Transaction? newTrans = await showDialog(
+        context: context,
+        builder: (BuildContext ctx) => const AddTransactionModal());
+    if (newTrans != null && mounted) {
+      setState(() {
         transactions.add(newTrans);
       });
     }
@@ -43,7 +46,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
         title: const Text("Transactions"),
       ),
       body: ListView(
-        children: List.from(transactions.map((e) => TransactionItem(t: e, key: Key(e.id.toString()),))),
+        children: List.from(transactions.map((e) => TransactionItem(
+              t: e,
+              key: Key(e.id.toString()),
+            ))),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: opf,
