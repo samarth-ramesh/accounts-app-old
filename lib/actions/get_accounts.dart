@@ -4,7 +4,7 @@ import 'package:accounts2/actions/bearer_token.dart';
 import 'package:accounts2/actions/get_transactions.dart';
 import 'package:accounts2/actions/login.dart';
 import 'package:http/http.dart' as http;
-Future<Map<String, int>> getAccounts() async {
+Future<Map<int, String>> getAccounts() async {
   final resp = await http.post(Uri.parse("$baseUrl/accounts/list"), headers: getHeaders(token), body: '{}');
   
   if (resp.statusCode != 200){
@@ -15,10 +15,10 @@ Future<Map<String, int>> getAccounts() async {
 
   var accountList = body['Accounts'];
 
-  var rv = <String, int>{};
+  var rv = <int, String>{};
 
   accountList.forEach((e){
-    rv[e['Name']] = e['Id'];
+    rv[e['Id']] = e['Name'];
   });
 
   return rv;

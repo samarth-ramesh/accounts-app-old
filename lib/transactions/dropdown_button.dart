@@ -1,39 +1,44 @@
 import 'package:flutter/material.dart';
 
 class ChooseAccount extends StatefulWidget {
-  final List<String> s;
-  final String cur;
-  final Function(String) f;
+  int current;
+  final Map<int, String> accounts;
+  final Function(int) callback;
 
-  const ChooseAccount(
-      {Key? key, required this.s, required this.f, required this.cur})
+  ChooseAccount(
+      {Key? key,
+      required this.current,
+      required this.accounts,
+      required this.callback})
       : super(key: key);
 
   @override
   State<ChooseAccount> createState() => _ChooseAccountState();
 }
 
-class _ChooseAccountState extends State<ChooseAccount> {
+typedef MenuItemType = DropdownMenuItem<int>;
 
-  List<DropdownMenuItem<String>> _menuItems(){
-    return List.of(widget.s.map((e) => DropdownMenuItem(value: e,child: Text(e),)));
+class _ChooseAccountState extends State<ChooseAccount> {
+  List<MenuItemType> _get_items() {
+    List<MenuItemType> rv = [];
+    widget.accounts.forEach((key, value) {
+      rv.add(
+        DropdownMenuItem(child: Text(value), value: key,)
+      );
+    });
+    return rv;
   }
 
   @override
   Widget build(BuildContext context) {
-    var cur = widget.cur;
-    if (cur == ""){
-      cur = widget.s[0];
+    int? cur = widget.current;
+    if (cur < 0){
+      cur = null;
     }
-
-    return DropdownButton<String>(
-      items: _menuItems(),
-      onChanged: (String? s) {
-        if (s != null){
-          widget.f(s);
-        }
-      },
-      value: cur,
-    );
+    return DropdownButton<int>(items: _get_items(), onChanged: (int? next){
+      if (next != null){
+        widget.callback(next);
+      }
+    }, value: cur,);
   }
 }

@@ -10,32 +10,32 @@ class AddTransactionModal extends StatefulWidget {
 }
 
 class _AddTransactionModalState extends State<AddTransactionModal> {
-  String s1 = "";
-  String s2 = "";
+  int s1 = -1;
+  int s2 = -1;
   String amt = "";
-  Map<String, int> accounts = {};
+  Map<int, String> accounts = {};
 
-  void sets1(String s) {
+  void sets1(int s) {
     setState(() {
       s1 = s;
     });
   }
 
-  void sets2(String s) {
+  void sets2(int s) {
     setState(() {
       s2 = s;
     });
   }
 
   @override
-  initState(){
+  initState() {
     super.initState();
     gaccounts();
   }
 
   void gaccounts() async {
     var acc = await getAccounts();
-    setState((){
+    setState(() {
       accounts = acc;
     });
   }
@@ -43,46 +43,46 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: const Text("Create Account", textAlign: TextAlign.center,),
+      title: const Text(
+        "Create Account",
+        textAlign: TextAlign.center,
+      ),
       titlePadding: const EdgeInsets.all(8),
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("From"),
+                          ChooseAccount(current: s1, accounts: accounts, callback: sets1,),
+                        ]),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text("From"),
-                        ChooseAccount(s: ['foo', 'bar'], f: sets1, cur: s1)
-                      ]),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Text("To"),
-                      ChooseAccount(s: ['bar', 'baz'], f: sets2, cur: s2)
-                    ],
-                  )
-                ],
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  label: Text("Amount"),
-                  border: OutlineInputBorder()
+                        const Text("To"),
+                        ChooseAccount(current: s2, accounts: accounts, callback: sets2)
+                      ],
+                    )
+                  ],
                 ),
-                onChanged: (String s){
-                  setState((){
-                    amt = s;
-                  });
-                },
-              )
-            ],
-          )
-        )
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      label: Text("Amount"), border: OutlineInputBorder()),
+                  onChanged: (String s) {
+                    setState(() {
+                      amt = s;
+                    });
+                  },
+                )
+              ],
+            ))
       ],
     );
   }
