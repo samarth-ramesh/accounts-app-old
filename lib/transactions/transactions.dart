@@ -38,7 +38,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
         title: const Text("Transactions"),
       ),
       body: Column(
-        children: List.from(transactions.map((e) => TransactionItem(t: e,))),
+        children: List.from(transactions.map((e) => TransactionItem(t: e, key: Key(e.id.toString()),))),
       ),
     );
   }
