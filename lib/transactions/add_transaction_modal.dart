@@ -46,13 +46,13 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
     var newTrans = await createTransaction(remarks, s1, s2, double.parse(amt));
     var accName1 = accounts[int.parse(newTrans.acc1)];
     var accName2 = accounts[int.parse(newTrans.acc2)];
-    if (accName1 != null){
+    if (accName1 != null) {
       newTrans.acc1 = accName1;
     }
-    if (accName2 != null){
+    if (accName2 != null) {
       newTrans.acc2 = accName2;
     }
-    if (mounted){
+    if (mounted) {
       Navigator.of(context).pop(newTrans);
     }
   }
@@ -122,7 +122,10 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: ElevatedButton(
-                      onPressed: () {createTrans();}, child: const Text("Create!")),
+                      onPressed: () {
+                        createTrans();
+                      },
+                      child: const Text("Create!")),
                 )
               ],
             ))

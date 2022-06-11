@@ -47,7 +47,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
       appBar: AppBar(
         title: const Text("Transactions"),
       ),
-      body: Column(
+      body: ListView(
         children: List.from(transactions.map((e) => TransactionItem(t: e, key: Key(e.id.toString()),))),
       ),
       floatingActionButton: FloatingActionButton(
