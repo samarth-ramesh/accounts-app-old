@@ -1,3 +1,4 @@
+import 'package:accounts2/actions/get_accounts.dart';
 import 'package:accounts2/transactions/dropdown_button.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
   String s1 = "";
   String s2 = "";
   String amt = "";
+  Map<String, int> accounts = {};
 
   void sets1(String s) {
     setState(() {
@@ -28,7 +30,14 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
   @override
   initState(){
     super.initState();
+    gaccounts();
+  }
 
+  void gaccounts() async {
+    var acc = await getAccounts();
+    setState((){
+      accounts = acc;
+    });
   }
 
   @override
