@@ -24,7 +24,7 @@ class _CreateAccountState extends State<CreateAccount> {
     }
     Account acc = await createAccount(name);
     if (mounted){
-      Navigator.pop(context, acc);
+      Navigator.of(context).pop(acc);
     }
   }
 

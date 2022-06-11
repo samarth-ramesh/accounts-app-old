@@ -16,9 +16,9 @@ class _AccountsPageState extends State<AccountsPage> {
   List<Account> accounts = [];
 
   void opf(BuildContext context) async {
-    Account? acc = showDialog(
+    Account? acc = await showDialog(
         context: context,
-        builder: (BuildContext ctx) => const CreateAccount()) as Account?;
+        builder: (BuildContext context) => const CreateAccount());
     if (mounted && acc != null){
       setState((){
         accounts.add(acc);
