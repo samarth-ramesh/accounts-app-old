@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:accounts2/actions/bearerToken.dart' as bt;
+import 'package:accounts2/actions/bearer_token.dart' as bt;
 
 const baseUrl = "https://ac.samarth.gq";
 

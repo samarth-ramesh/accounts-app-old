@@ -1,6 +1,6 @@
-import 'package:accounts2/actions/getTransactions.dart';
+import 'package:accounts2/actions/get_transactions.dart';
 import 'package:accounts2/transactions/add_transaction_modal.dart';
-import 'package:accounts2/transactions/transactionItem.dart';
+import 'package:accounts2/transactions/transaction_item.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsPage extends StatefulWidget {

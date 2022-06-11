@@ -1,4 +1,4 @@
-import 'package:accounts2/actions/getTransactions.dart';
+import 'package:accounts2/actions/get_transactions.dart';
 import 'package:flutter/material.dart';
 
 String dtToDDMMYY(DateTime dt) {
