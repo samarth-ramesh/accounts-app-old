@@ -1,4 +1,5 @@
 import 'package:accounts2/actions/getTransactions.dart';
+import 'package:accounts2/transactions/transactionItem.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
         title: const Text("Transactions"),
       ),
       body: Column(
-
+        children: List.from(transactions.map((e) => TransactionItem(t: e,))),
       ),
     );
   }
