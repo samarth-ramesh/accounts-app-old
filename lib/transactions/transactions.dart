@@ -1,4 +1,5 @@
 import 'package:accounts2/actions/getTransactions.dart';
+import 'package:accounts2/transactions/add_transaction_modal.dart';
 import 'package:accounts2/transactions/transactionItem.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
     });
   }
 
+  void opf(){
+    showDialog(context: context, builder: (BuildContext ctx) => AddTransactionModal());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +44,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
       ),
       body: Column(
         children: List.from(transactions.map((e) => TransactionItem(t: e, key: Key(e.id.toString()),))),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: opf,
+        child: const Icon(Icons.add),
       ),
     );
   }
