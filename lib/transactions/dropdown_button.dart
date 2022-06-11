@@ -21,24 +21,32 @@ typedef MenuItemType = DropdownMenuItem<int>;
 class _ChooseAccountState extends State<ChooseAccount> {
   List<MenuItemType> _get_items() {
     List<MenuItemType> rv = [];
+    rv.add(DropdownMenuItem(
+      enabled: false,
+      value: -1,
+      child: Text("Select Account", style: TextStyle(color: Theme.of(context).disabledColor),),
+    ));
     widget.accounts.forEach((key, value) {
-      rv.add(
-        DropdownMenuItem(child: Text(value), value: key,)
-      );
+      rv.add(DropdownMenuItem(
+        value: key,
+        child: Text(value),
+      ));
     });
     return rv;
   }
 
   @override
   Widget build(BuildContext context) {
-    int? cur = widget.current;
-    if (cur < 0){
-      cur = null;
-    }
-    return DropdownButton<int>(items: _get_items(), onChanged: (int? next){
-      if (next != null){
-        widget.callback(next);
-      }
-    }, value: cur,);
+    int cur = widget.current;
+    var items = _get_items();
+    return DropdownButton<int>(
+      items: items,
+      onChanged: (int? next) {
+        if (next != null) {
+          widget.callback(next);
+        }
+      },
+      value: cur,
+    );
   }
 }
