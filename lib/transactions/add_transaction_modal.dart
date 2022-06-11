@@ -60,26 +60,39 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text("From"),
-                          ChooseAccount(current: s1, accounts: accounts, callback: sets1,),
+                          ChooseAccount(
+                            current: s1,
+                            accounts: accounts,
+                            callback: sets1,
+                          ),
                         ]),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text("To"),
-                        ChooseAccount(current: s2, accounts: accounts, callback: sets2)
+                        ChooseAccount(
+                            current: s2, accounts: accounts, callback: sets2)
                       ],
                     )
                   ],
                 ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      label: Text("Amount"), border: OutlineInputBorder()),
-                  onChanged: (String s) {
-                    setState(() {
-                      amt = s;
-                    });
-                  },
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        label: Text("Amount"), border: OutlineInputBorder()),
+                    onChanged: (String s) {
+                      setState(() {
+                        amt = s;
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: ElevatedButton(
+                      onPressed: () {}, child: const Text("Create!")),
                 )
               ],
             ))
