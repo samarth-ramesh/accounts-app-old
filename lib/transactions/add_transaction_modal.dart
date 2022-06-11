@@ -10,10 +10,31 @@ class AddTransactionModal extends StatefulWidget {
   State<AddTransactionModal> createState() => _AddTransactionModalState();
 }
 
+class ErrorDialog extends StatelessWidget {
+  final String message;
+
+  const ErrorDialog({Key? key, required this.message}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text("Error"),
+      content: Text(message),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Ok"))
+      ],
+    );
+  }
+}
+
 class _AddTransactionModalState extends State<AddTransactionModal> {
   int s1 = -1;
   int s2 = -1;
-  String amt = "";
+  double amt = -1;
   String remarks = "";
   Map<int, String> accounts = {};
 
@@ -43,7 +64,41 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
   }
 
   void createTrans() async {
-    var newTrans = await createTransaction(remarks, s1, s2, double.parse(amt));
+    if (s1 < 0 || s2 < 0) {
+      // either source or dest have not been selected;
+      showDialog(
+          context: context,
+          builder: (context) =>
+              const ErrorDialog(message: "Try choosing an account first!"));
+      return;
+    }
+
+    if (s1 == s2) {
+      // source is same as dest
+      showDialog(
+          context: context,
+          builder: (context) => const ErrorDialog(
+              message:
+                  "Try sending dough between different accounts you loon!"));
+      return;
+    }
+
+    if (amt < 0) {
+      showDialog(
+          context: context,
+          builder: (context) => const ErrorDialog(
+              message: "Send positive amounts of money only!"));
+      return;
+    }
+
+    if (remarks == "") {
+      showDialog(
+          context: context,
+          builder: (context) => const ErrorDialog(message: "Comments Please!"));
+      return;
+    }
+
+    var newTrans = await createTransaction(remarks, s1, s2, amt);
     var accName1 = accounts[int.parse(newTrans.acc1)];
     var accName2 = accounts[int.parse(newTrans.acc2)];
     if (accName1 != null) {
@@ -101,7 +156,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                         label: Text("Amount"), border: OutlineInputBorder()),
                     onChanged: (String s) {
                       setState(() {
-                        amt = s;
+                        amt = double.parse(s);
                       });
                     },
                   ),
