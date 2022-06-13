@@ -18,11 +18,13 @@ class _EditTransactionState extends State<EditTransaction> {
   Map<int, String> accountList = {};
   int acc1 = -1;
   int acc2 = -1;
+  double amt = -1;
 
   @override
   void initState() {
     super.initState();
     gaccounts();
+    amt =  widget.transaction.amt;
   }
 
   void gaccounts() async {
