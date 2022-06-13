@@ -15,7 +15,7 @@ class EditTransaction extends StatefulWidget {
 }
 
 class _EditTransactionState extends State<EditTransaction> {
-  Map<int, String> accountList = {-1: "Choose Account"};
+  Map<int, String> accountList = {};
   int acc1 = -1;
   int acc2 = -1;
 
@@ -55,54 +55,73 @@ class _EditTransactionState extends State<EditTransaction> {
     var curAcc2 = getStateOrDefault(acc2, widget.transaction.acc2);
 
     return SimpleDialog(
-        titlePadding: const EdgeInsets.all(16),
-        title: Text(
-          "Edit Transaction",
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text("From"),
-                        ChooseAccount(
-                          current: curAcc1,
-                          accounts: accountList,
-                          callback: (int x) {
-                            setState((){
-                              acc1 = x;
-                            });
-                          },
-                        ),
-                      ],
+      titlePadding: const EdgeInsets.all(16),
+      title: Text(
+        "Edit Transaction",
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              // Column(
+              //   children: [
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       children: [
+              //
+              //       ],
+              //     ),
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+              //     ),
+              //   ],
+              // ),
+              Table(
+                defaultColumnWidth: const IntrinsicColumnWidth(),
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+
+                children: [
+                  TableRow(children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("From"),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text("To"),
-                        ChooseAccount(
-                          current: curAcc2,
-                          accounts: accountList,
-                          callback: (int x) {
-                            setState((){
-                              acc2 = x;
-                            });
-                          },
-                        ),
-                      ],
+                    ChooseAccount(
+                      current: curAcc1,
+                      accounts: accountList,
+                      callback: (int x) {
+                        setState(() {
+                          acc1 = x;
+                        });
+                      },
                     ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      );
+                  ]),
+                  TableRow(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text("To"),
+                      ),
+                      ChooseAccount(
+                        current: curAcc2,
+                        accounts: accountList,
+                        callback: (int x) {
+                          setState(() {
+                            acc2 = x;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
