@@ -1,6 +1,7 @@
 import 'package:accounts2/actions/get_transactions.dart';
 import 'package:accounts2/navbar.dart';
 import 'package:accounts2/transactions/add_transaction_modal.dart';
+import 'package:accounts2/transactions/edit_transaction_modal.dart';
 import 'package:accounts2/transactions/transaction_item.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,9 @@ class _TransactionsPageState extends State<TransactionsPage> {
         actions: (selected == null
             ? []
             : [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                IconButton(onPressed: () {
+                  showDialog(context: context, builder: (context) => EditTransaction(transaction: selected!));
+                }, icon: const Icon(Icons.edit)),
                 IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
               ]),
         leading: (selected != null) ? IconButton(onPressed: (){

@@ -4,7 +4,13 @@ import 'package:accounts2/actions/bearer_token.dart';
 import 'package:accounts2/actions/get_transactions.dart';
 import 'package:accounts2/actions/login.dart';
 import 'package:http/http.dart' as http;
+
+Map<int, String>? cur;
+
 Future<Map<int, String>> getAccounts() async {
+  if (cur != null){
+    return cur as Map<int, String>;
+  }
   final resp = await http.post(Uri.parse("$baseUrl/accounts/list"), headers: getHeaders(token), body: '{}');
   
   if (resp.statusCode != 200){
@@ -20,6 +26,6 @@ Future<Map<int, String>> getAccounts() async {
   accountList.forEach((e){
     rv[e['Id']] = e['Name'];
   });
-
+  cur = rv;
   return rv;
 }
